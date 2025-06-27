@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal } from '@angular/core';
+import { Component, computed, OnInit, Signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridAngular } from 'ag-grid-angular';
 import type { ColDef } from 'ag-grid-community';
@@ -12,6 +12,7 @@ import { Project } from '../../models/project.model';
 import { AppState } from '../../store';
 import { loadAllProjects } from '../../store/project/project.action';
 import { selectProjects } from '../../store/project/project.selector';
+import { getNumberOfProjectsByStatusCount } from '../../util/project.util';
 
 echarts.use([PieChart, CanvasRenderer, TooltipComponent, LegendComponent]);
 
@@ -22,6 +23,13 @@ echarts.use([PieChart, CanvasRenderer, TooltipComponent, LegendComponent]);
 })
 export class ProjectsComponent implements OnInit {
   projects: Signal<Project[]>;
+
+  pieChartData = computed(() => {
+    const statusCount = getNumberOfProjectsByStatusCount(this.projects());
+    const data = [...statusCount].map(([name, value]) => ({ name, value }));
+    const mergeOptions = { series: [{ data }] };
+    return mergeOptions;
+  });
 
   constructor(private store: Store<AppState>) {
     this.projects = this.store.selectSignal(selectProjects);
@@ -54,7 +62,6 @@ export class ProjectsComponent implements OnInit {
     },
     series: [
       {
-        name: 'Access From',
         type: 'pie',
         radius: ['40%', '80%'],
         avoidLabelOverlap: false,
@@ -69,13 +76,6 @@ export class ProjectsComponent implements OnInit {
         labelLine: {
           show: false,
         },
-        data: [
-          { value: 1048, name: 'Search Engine' },
-          { value: 735, name: 'Direct' },
-          { value: 580, name: 'Email' },
-          { value: 484, name: 'Union Ads' },
-          { value: 300, name: 'Video Ads' },
-        ],
       },
     ],
   };
