@@ -18,6 +18,7 @@
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
     "@ngrx/store": "^19.2.1",
+    "@ngrx/store-devtools": "^19.2.1",
     "ag-grid-angular": "^34.0.0",
     "bootstrap": "^5.3.7",
     "echarts": "^5.6.0",
