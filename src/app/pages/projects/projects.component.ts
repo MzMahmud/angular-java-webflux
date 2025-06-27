@@ -13,6 +13,7 @@ import { AppState } from '../../store';
 import { loadAllProjects } from '../../store/project/project.action';
 import { selectProjects } from '../../store/project/project.selector';
 import { getNumberOfProjectsByStatusCount } from '../../util/project.util';
+import { Title } from '@angular/platform-browser';
 
 echarts.use([PieChart, CanvasRenderer, TooltipComponent, LegendComponent]);
 
@@ -31,11 +32,12 @@ export class ProjectsComponent implements OnInit {
     return mergeOptions;
   });
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private titleService: Title) {
     this.projects = this.store.selectSignal(selectProjects);
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Projects');
     this.store.dispatch(loadAllProjects());
   }
 
