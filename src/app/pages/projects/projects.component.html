@@ -1,3 +1,9 @@
-@for (project of projects(); track project.id) {
-<div>{{ project.name }}</div>
-}
+<ag-grid-angular
+  style="height: 500px"
+  [rowData]="projects()"
+  [columnDefs]="colDefs"
+  [defaultColDef]="defaultColDef"
+  [pagination]="true"
+  [paginationPageSize]="10"
+  [paginationPageSizeSelector]="[10, 20, 50, 100]"
+/>
