@@ -3,6 +3,9 @@
 ### Get all projects
 GET {{baseUrl}}/api/projects
 
+### Stream all projects
+GET {{baseUrl}}/api/projects/stream
+
 ### Get project by id
 @id = 34f70c23-d963-4ffb-aaa6-a5e02dad7d28
 GET {{baseUrl}}/api/projects/{{id}}

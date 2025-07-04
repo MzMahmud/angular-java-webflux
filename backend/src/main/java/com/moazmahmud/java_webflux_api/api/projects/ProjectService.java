@@ -2,6 +2,7 @@ package com.moazmahmud.java_webflux_api.api.projects;
 
 import com.moazmahmud.java_webflux_api.model.NotFoundResponseException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -45,5 +46,12 @@ public class ProjectService {
         return findById(id)
                 .doOnNext(projectDtos::remove)
                 .then();
+    }
+
+    public ServerSentEvent<ProjectDto> convertToServerSentEvent(ProjectDto dto) {
+        return ServerSentEvent.<ProjectDto>builder()
+                .id(dto.getId())
+                .data(dto)
+                .build();
     }
 }

@@ -2,10 +2,14 @@ package com.moazmahmud.java_webflux_api.api.projects;
 
 import com.moazmahmud.java_webflux_api.model.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.List;
 
 @RestController
@@ -19,6 +23,13 @@ public class ProjectController {
         return service.findAll()
                 .collectList()
                 .map(ApiResponse::of);
+    }
+
+    @GetMapping(path = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ServerSentEvent<ProjectDto>> streamAll(@RequestParam(defaultValue = "100") int delayInMs) {
+        return service.findAll()
+                .map(service::convertToServerSentEvent)
+                .delayElements(Duration.ofMillis(delayInMs));
     }
 
     @GetMapping("/{id}")
