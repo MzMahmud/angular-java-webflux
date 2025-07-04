@@ -32,10 +32,8 @@ public class ProjectService {
     }
 
     public Mono<ProjectDto> update(ProjectDto dto) {
-        var id = dto.getId();
         return findById(dto.getId())
-                .doOnNext(dst -> update(dto, dst))
-                .switchIfEmpty(Mono.error(new NotFoundResponseException(String.format("Project with id=%s not found", id))));
+                .doOnNext(dst -> update(dto, dst));
     }
 
     private void update(ProjectDto src, ProjectDto dst) {

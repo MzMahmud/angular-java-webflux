@@ -7,7 +7,7 @@ GET {{baseUrl}}/api/projects
 GET {{baseUrl}}/api/projects/stream
 
 ### Get project by id
-@id = 34f70c23-d963-4ffb-aaa6-a5e02dad7d28
+@id = 33aef80d-8596-482f-9fb1-6b8b967dcc4f
 GET {{baseUrl}}/api/projects/{{id}}
 
 ### Get add project
