@@ -1,0 +1,4 @@
+@baseUrl = http://localhost:8080
+
+### Get all projects
+GET {{baseUrl}}/api/projects
