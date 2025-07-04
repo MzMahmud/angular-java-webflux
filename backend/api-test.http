@@ -2,3 +2,30 @@
 
 ### Get all projects
 GET {{baseUrl}}/api/projects
+
+### Get project by id
+@id = 34f70c23-d963-4ffb-aaa6-a5e02dad7d28
+GET {{baseUrl}}/api/projects/{{id}}
+
+### Get add project
+POST {{baseUrl}}/api/projects
+Content-Type: application/json
+
+{
+    "name": "One",
+    "owner": "One Two",
+    "status": "In Progress"
+}
+
+### Update project
+PUT {{baseUrl}}/api/projects/{{id}}
+Content-Type: application/json
+
+{
+    "name": "One Edited",
+    "owner": "One One",
+    "status": "In Progress"
+}
+
+### Delete project
+DELETE {{baseUrl}}/api/projects/{{id}}
